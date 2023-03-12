@@ -1,0 +1,129 @@
+Design Template:
+for syke asia.com
+
+config t
+vlan 25
+name sykeasia.com
+int vlan 25
+no shut
+ip add 10.10.16.1 255.255.240.0
+ ip dhcp Excluded-Add 10.0.16.1 10.0.16.100
+ ip dhcp pool sykeasia.com
+ network 10.0.16.0 255.255.240.0
+ default-router 10.0.16.1
+ domain-name sykeasia.com
+ dns-server 10.42.1.10
+ option 150 ip 10.42.100.8
+int fa 0/5
+ switchport access vlan 25
+ do sh ip int bri
+ip routing
+for syke asia.com
+
+
+
+for concentrix
+
+config t
+vlan 25
+name sykes.com
+int vlan 25
+no shut
+ip add 172.16.8.1 255.255.248.0
+ ip dhcp Excluded-Add 172.16.8.1 172.16.8.100
+ ip dhcp pool sykes.com
+ network 172.16.8.0 255.255.248.0
+ default-router 172.16.8.1
+ domain-name sykes.com
+ dns-server 10.42.1.10
+ option 150 ip 10.42.100.8
+int e0/0
+ switchport access vlan 25
+ do sh ip int bri
+ip routing
+
+
+
+config t
+vlan 25
+name pnp.gov.ph
+int vlan 25
+no shut
+ip add 10.0.0.65 255.255.255.192
+ ip dhcp Excluded-Add 10.0.0.65 10.0.0.70
+ ip dhcp pool pnp.gov.ph
+ network 10.0.0.64 255.255.255.192
+ default-router 10.0.0.65
+ domain-name pnp.gov.ph
+ dns-server 10.42.1.10
+ option 150 ip 10.42.100.8
+int fa 0/5
+ switchport access vlan 25
+ do sh ip int bri
+ip routing
+
+
+
+
+
+User Access Verification
+
+Password: 
+Password: 
+COREbaba42>en
+Password: 
+COREbaba42#telnet 10.12.100.8
+Trying 10.12.100.8 ... 
+% Destination unreachable; gateway or host down
+
+COREbaba42#telnet 10.42.100.8
+Trying 10.42.100.8 ... Open
+
+
+User Access Verification
+
+Password: 
+CUCM-42>ip routing 
+           ^
+% Invalid input detected at '^' marker.
+
+CUCM-42>ip routing
+           ^
+% Invalid input detected at '^' marker.
+
+CUCM-42>config t
+           ^
+% Invalid input detected at '^' marker.
+
+CUCM-42>config t
+           ^
+% Invalid input detected at '^' marker.
+
+CUCM-42>en
+Password: 
+Password: 
+Password: 
+% Bad secrets
+
+CUCM-42>en
+Password: 
+Password: 
+Password: 
+% Bad secrets
+
+CUCM-42>en
+Password: 
+Password: 
+CUCM-42#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+CUCM-42(config)#ip routing
+CUCM-42(config)#ip route 0.0.0.0 0.0.0.0 10.42.100.4
+
+
+
+
+Enter configuration commands, one per line.  End with CNTL/Z.
+COREbaba42(config)#router ospf 1
+COREbaba42(config-router)#network 10.0.0.0 0.0.0.255 area 0
+COREbaba42(config-router)#network 0.0.0.0 255.255.255.255 area 0
+COREbaba42(config-router)#
